@@ -12,9 +12,9 @@ from sklearn.externals import joblib
 
 def train_model():
     #importing dataset
-    dataset =pd.read_csv(r"C:\Users\priya\Project\model\PcodMini.csv")
+    dataset =pd.read_csv(r"C:\Users\priya\PCOD_Disease_Prediction\PCOD.csv")
     X = dataset.iloc[:, :-1].values
-    Y = dataset.iloc[:, 19].values
+    Y = dataset.iloc[:, 20].values
 
     #encoding categorical data
     labelencoder_y=LabelEncoder()
@@ -36,5 +36,5 @@ def train_model():
     accuracy = accuracy_score(Y_test, Y_pred)
 
     #dumping the classifier into model
-    joblib.dump(classifier, 'pcod-model.model')
+    joblib.dump(classifier, 'pcodfinal-model.model')
     print('Model Training Finished.\n\tAccuracy obtained: {}'.format(accuracy))

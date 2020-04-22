@@ -6,10 +6,10 @@ from sklearn.externals import joblib
 
 app = Flask(__name__)
 api = Api(app)
-if not os.path.isfile('pcod-model.model'):
+if not os.path.isfile('pcodfinal-model.model'):
     train_model()
 
-model = joblib.load('pcod-model.model')
+model = joblib.load('pcodfinal-model.model')
 
 class MakePrediction(Resource):
     @staticmethod
@@ -34,14 +34,15 @@ class MakePrediction(Resource):
         any_Drugs = posted_data['any_Drugs']
         thyroid_problem = posted_data['thyroid_problem']
         treatment_Taken = posted_data['treatment_Taken']
+        married = posted_data['Married']
 
-        prediction = model.predict([[age,weight,height,sugar_Level,bp_Level,androgen_Level,sleep,child_Count,gap_Mrg_Child,periods_long_week,irregular_periods,fast_food,loose_Weight,Hair_Growth,dark_Patches,stress,any_Drugs,thyroid_problem,treatment_Taken]])[0]
+        prediction = model.predict([[age,weight,height,sugar_Level,bp_Level,androgen_Level,sleep,child_Count,gap_Mrg_Child,periods_long_week,irregular_periods,fast_food,loose_Weight,Hair_Growth,dark_Patches,stress,any_Drugs,thyroid_problem,treatment_Taken,married]])[0]
         if prediction == 0:
             predicted_class = 'high_risk'
         elif prediction == 1:
             predicted_class = 'low_risk'
         else:
-            predicted_class = 'no_risk'
+            predicted_class = 'mid_risk'
 
         return jsonify({
             'Prediction': predicted_class
