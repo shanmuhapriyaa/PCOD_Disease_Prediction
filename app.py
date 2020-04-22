@@ -40,9 +40,13 @@ class MakePrediction(Resource):
         if prediction == 0:
             predicted_class = 'high_risk'
         elif prediction == 1:
-            predicted_class = 'low_risk'
-        else:
             predicted_class = 'mid_risk'
+        else:
+<<<<<<< HEAD
+            predicted_class = 'mid_risk'
+=======
+            predicted_class = 'low_risk'
+>>>>>>> 2a2d56b3695d3ea8b9fcc2f419f13240169bfd20
 
         return jsonify({
             'Prediction': predicted_class
