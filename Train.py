@@ -9,29 +9,29 @@ from sklearn.ensemble import RandomForestClassifier
 
 
 
+def train_model():
+    dataset =pd.read_csv("/content/New21.csv")
+    X=dataset.drop(['disease_present'],axis=1)
+    Y=dataset['disease_present']
+        #encoding categorical data
+    labelencoder_y=LabelEncoder()
+    Y=labelencoder_y.fit_transform(Y)
 
-dataset =pd.read_csv("/content/New21.csv")
-X=dataset.drop(['disease_present'],axis=1)
-Y=dataset['disease_present']
-    #encoding categorical data
-labelencoder_y=LabelEncoder()
-Y=labelencoder_y.fit_transform(Y)
-
-    #spliting training and test set
-X_train,X_test,Y_train,Y_test=train_test_split(X,Y,test_size=0.33,random_state=0)
+        #spliting training and test set
+    X_train,X_test,Y_train,Y_test=train_test_split(X,Y,test_size=0.33,random_state=0)
 
 
-    #fitting the classifier to the training set
-classifier = RandomForestClassifier(criterion='entropy',random_state=0)
-classifier.fit(X_train, Y_train)
+        #fitting the classifier to the training set
+    classifier = RandomForestClassifier(criterion='entropy',random_state=0)
+    classifier.fit(X_train, Y_train)
 
-    #predicting the test set results
-Y_pred=classifier.predict(X_test)
+        #predicting the test set results
+    Y_pred=classifier.predict(X_test)
 
-    # making the confusion matrix and calculating accuraccy
-cm=confusion_matrix(Y_test,Y_pred)
-accuracy = accuracy_score(Y_test, Y_pred)
+        # making the confusion matrix and calculating accuraccy
+    cm=confusion_matrix(Y_test,Y_pred)
+    accuracy = accuracy_score(Y_test, Y_pred)
 
-    #dumping the classifier into model
-joblib.dump(classifier, 'pcodfinal.model')
-print('Model Training Finished.\n\tAccuracy obtained: {}'.format(accuracy))
+        #dumping the classifier into model
+    joblib.dump(classifier, 'pcodfinal.model')
+    print('Model Training Finished.\n\tAccuracy obtained: {}'.format(accuracy))
